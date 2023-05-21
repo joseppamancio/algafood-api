@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +34,14 @@ public class EstadoController {
 	
 	@GetMapping
 	public List<Estado> listar(){
-		return estadoRepository.listar();
+		return estadoRepository.findAll();
 	}
 	
 	@GetMapping("/{estadoId}")
 	public ResponseEntity<Estado> buscar(@PathVariable Long estadoId) {
-		Estado estado = estadoRepository.buscar(estadoId);
-		if (estado != null)
-			return ResponseEntity.ok(estado);
+		Optional<Estado> estado = estadoRepository.findById(estadoId);
+		if (estado.isPresent())
+			return ResponseEntity.ok(estado.get());
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -54,10 +55,10 @@ public class EstadoController {
 	public ResponseEntity<?> atualizar(@PathVariable Long estadoId,
 			@RequestBody Estado estado){
 		try {
-			Estado estadoAtual = estadoRepository.buscar(estadoId);
-			if(estadoAtual != null) {
-				BeanUtils.copyProperties(estado, estadoAtual, "id");
-				return ResponseEntity.ok(cadastroEstadoService.salvar(estadoAtual));
+			Optional<Estado> estadoAtual = estadoRepository.findById(estadoId);
+			if(estadoAtual.isPresent()) {
+				BeanUtils.copyProperties(estado, estadoAtual.get(), "id");
+				return ResponseEntity.ok(cadastroEstadoService.salvar(estadoAtual.get()));
 			}
 			return ResponseEntity.notFound().build();
 		}catch(EntidadeNaoEncontradaException e) {
@@ -70,10 +71,10 @@ public class EstadoController {
 		try {
 			cadastroEstadoService.excluir(estadoId);
 			return ResponseEntity.noContent().build();
-		}catch (EntidadeNaoEncontradaException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+		}catch (EntidadeNaoEncontradaException e) { 
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}catch (EntidadeEmUsoException e) { 
-			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
 		}
 	}
 }
