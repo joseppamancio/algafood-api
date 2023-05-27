@@ -62,7 +62,7 @@ public class Restaurante {
 	@JoinColumn(name= "cozinha_id", nullable = false)
 	private Cozinha cozinha;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@ManyToMany
 	//@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="restaurante_forma_pagamento",
