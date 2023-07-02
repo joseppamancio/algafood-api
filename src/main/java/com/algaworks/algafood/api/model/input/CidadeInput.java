@@ -1,8 +1,10 @@
-package com.algaworks.algafood.api.model;
+package com.algaworks.algafood.api.model.input;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.algaworks.algafood.api.model.EstadoModel;
 
 import lombok.Getter;
 import lombok.Setter;
