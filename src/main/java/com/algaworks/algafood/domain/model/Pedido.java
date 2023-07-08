@@ -70,16 +70,16 @@ public class Pedido {
 	private Usuario cliente;
 	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-	private List<ItemPedido> itens = new ArrayList<>();  
+	private List<ItemPedido> itens = new ArrayList<>();
 
 	public void calcularValorTotal() {
-	    getItens().forEach(ItemPedido::calcularPrecoTotal);
-	    
-	    this.subtotal = getItens().stream()
-	        .map(item -> item.getPrecoTotal())
-	        .reduce(BigDecimal.ZERO, BigDecimal::add);
-	    
-	    this.valorTotal = this.subtotal.add(this.taxaFrete);
+		getItens().forEach(ItemPedido::calcularPrecoTotal);
+		
+		this.subtotal = getItens().stream()
+			.map(item -> item.getPrecoTotal())
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
+		
+		this.valorTotal = this.subtotal.add(this.taxaFrete);
 	}
 	
 	public void confirmar() {
@@ -101,7 +101,8 @@ public class Pedido {
 		if (getStatus().naoPodeAlterarPara(novoStatus)) {
 			throw new NegocioException(
 					String.format("Status do pedido %s não pode ser alterado de %s para %s",
-							getCodigo(), getStatus().getDescricao(), novoStatus.getDescricao()));
+							getCodigo(), getStatus().getDescricao(), 
+							novoStatus.getDescricao()));
 		}
 		
 		this.status = novoStatus;
@@ -111,5 +112,5 @@ public class Pedido {
 	private void gerarCodigo() {
 		setCodigo(UUID.randomUUID().toString());
 	}
-
+	
 }
