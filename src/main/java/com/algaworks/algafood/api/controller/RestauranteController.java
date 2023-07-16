@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 import com.fasterxml.jackson.annotation.JsonView;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/restaurantes")
 public class RestauranteController {
@@ -57,39 +59,6 @@ public class RestauranteController {
 	public List<RestauranteModel> listarApenasNomes() {
 		return listar();
 	}
-	
-//	@GetMapping
-//	public MappingJacksonValue listar(@RequestParam(required=false) String projecao) {
-//		List<Restaurante> restaurantes = restauranteRepository.findAll();
-//		List<RestauranteModel> restaurantesModel = restauranteModelAssembler.toCollectionModel(restaurantes);
-//		
-//		MappingJacksonValue restaurantesWrapper = new MappingJacksonValue(restaurantesModel);
-//		restaurantesWrapper.setSerializationView(RestauranteView.Resumo.class);
-//
-//		if("apenas-nome".equals(projecao))
-//			restaurantesWrapper.setSerializationView(RestauranteView.ApenasNome.class);
-//		else if ("completo".equals(projecao))
-//			restaurantesWrapper.setSerializationView(null);
-//		
-//		return restaurantesWrapper;
-//	}
-//	
-//	@GetMapping
-//	public List<RestauranteModel> listar() {
-//		return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
-//	}
-//	
-//	@GetMapping(params = "projecao=resumo")
-//	@JsonView(RestauranteView.Resumo.class)
-//	public List<RestauranteModel> listarResumo() {
-//		return listar();
-//	}
-//	
-//	@GetMapping(params = "projecao=apenas-nome")
-//	@JsonView(RestauranteView.ApenasNome.class)
-//	public List<RestauranteModel> listarApenasNome() {
-//		return listar();
-//	}
 	
 	@GetMapping("/{restauranteId}")
 	public RestauranteModel buscar(@PathVariable Long restauranteId) {
