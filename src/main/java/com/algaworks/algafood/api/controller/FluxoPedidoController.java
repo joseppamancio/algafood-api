@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.algaworks.algafood.api.openapi.controller.FluxoPedidoControllerOpenApi;
 import com.algaworks.algafood.domain.service.FluxoPedidoService;
 
 @RestController
-@RequestMapping(value = "/pedidos/{codigoPedido}")
-public class FluxoPedidoController {
-	
+@RequestMapping(path = "/pedidos/{codigoPedido}")
+public class FluxoPedidoController implements FluxoPedidoControllerOpenApi {
+
 	@Autowired
 	private FluxoPedidoService fluxoPedido;
 	
@@ -26,13 +27,13 @@ public class FluxoPedidoController {
 	@PutMapping("/cancelamento")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void cancelar(@PathVariable String codigoPedido) {
-	    fluxoPedido.cancelar(codigoPedido);
+		fluxoPedido.cancelar(codigoPedido);
 	}
-
+	
 	@PutMapping("/entrega")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void entregar(@PathVariable String codigoPedido) {
-	    fluxoPedido.entregar(codigoPedido);
+		fluxoPedido.entregar(codigoPedido);
 	}
-
+	
 }

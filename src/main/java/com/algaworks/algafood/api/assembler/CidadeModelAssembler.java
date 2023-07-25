@@ -13,16 +13,17 @@ import com.algaworks.algafood.domain.model.Cidade;
 @Component
 public class CidadeModelAssembler {
 
-    @Autowired
-    private ModelMapper modelMapper;
-    
-    public CidadeModel toModel(Cidade cidade) {
-        return modelMapper.map(cidade, CidadeModel.class);
-    }
-    
-    public List<CidadeModel> toCollectionModel(List<Cidade> cidades) {
-        return cidades.stream()
-                .map(cidade -> toModel(cidade))
-                .collect(Collectors.toList());
-    }
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	public CidadeModel toModel(Cidade cidade) {
+		return modelMapper.map(cidade, CidadeModel.class);
+	}
+	
+	public List<CidadeModel> toCollectionModel(List<Cidade> cidades) {
+		return cidades.stream()
+				.map(cidade -> toModel(cidade))
+				.collect(Collectors.toList());
+	}
+	
 }

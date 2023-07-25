@@ -13,18 +13,18 @@ import com.algaworks.algafood.domain.model.Usuario;
 
 @Component
 public class UsuarioModelAssembler {
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 	
 	public UsuarioModel toModel(Usuario usuario) {
 		return modelMapper.map(usuario, UsuarioModel.class);
 	}
-
+	
 	public List<UsuarioModel> toCollectionModel(Collection<Usuario> usuarios) {
 		return usuarios.stream()
 				.map(usuario -> toModel(usuario))
 				.collect(Collectors.toList());
-	
 	}
+	
 }

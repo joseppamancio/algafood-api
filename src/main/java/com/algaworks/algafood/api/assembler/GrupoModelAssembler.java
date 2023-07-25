@@ -13,7 +13,7 @@ import com.algaworks.algafood.domain.model.Grupo;
 
 @Component
 public class GrupoModelAssembler {
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -22,9 +22,9 @@ public class GrupoModelAssembler {
 	}
 	
 	public List<GrupoModel> toCollectionModel(Collection<Grupo> grupos) {
-	    return grupos.stream()
-	            .map(grupo -> toModel(grupo))
-	            .collect(Collectors.toList());
+		return grupos.stream()
+				.map(grupo -> toModel(grupo))
+				.collect(Collectors.toList());
 	}
-
+	
 }
