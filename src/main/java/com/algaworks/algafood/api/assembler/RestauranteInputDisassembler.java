@@ -11,7 +11,7 @@ import com.algaworks.algafood.domain.model.Restaurante;
 
 @Component
 public class RestauranteInputDisassembler {
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -27,6 +27,8 @@ public class RestauranteInputDisassembler {
 		if (restaurante.getEndereco() != null) {
 			restaurante.getEndereco().setCidade(new Cidade());
 		}
+		
 		modelMapper.map(restauranteInput, restaurante);
 	}
+	
 }

@@ -9,7 +9,7 @@ import com.algaworks.algafood.domain.model.Produto;
 
 @Component
 public class ProdutoInputDisassembler {
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -20,5 +20,5 @@ public class ProdutoInputDisassembler {
 	public void copyToDomainObject(ProdutoInput produtoInput, Produto produto) {
 		modelMapper.map(produtoInput, produto);
 	}
-
+	
 }
