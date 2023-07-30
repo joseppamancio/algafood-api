@@ -1,16 +1,11 @@
 package com.algaworks.algafood.api.controller;
 
-import com.algaworks.algafood.api.assembler.UsuarioInputDisassembler;
-import com.algaworks.algafood.api.assembler.UsuarioModelAssembler;
-import com.algaworks.algafood.api.model.UsuarioModel;
-import com.algaworks.algafood.api.model.input.SenhaInput;
-import com.algaworks.algafood.api.model.input.UsuarioComSenhaInput;
-import com.algaworks.algafood.api.model.input.UsuarioInput;
-import com.algaworks.algafood.api.openapi.controller.UsuarioControllerOpenApi;
-import com.algaworks.algafood.domain.model.Usuario;
-import com.algaworks.algafood.domain.repository.UsuarioRepository;
-import com.algaworks.algafood.domain.service.CadastroUsuarioService;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
+import com.algaworks.algafood.api.assembler.UsuarioInputDisassembler;
+import com.algaworks.algafood.api.assembler.UsuarioModelAssembler;
+import com.algaworks.algafood.api.model.UsuarioModel;
+import com.algaworks.algafood.api.model.input.SenhaInput;
+import com.algaworks.algafood.api.model.input.UsuarioComSenhaInput;
+import com.algaworks.algafood.api.model.input.UsuarioInput;
+import com.algaworks.algafood.api.openapi.controller.UsuarioControllerOpenApi;
+import com.algaworks.algafood.domain.model.Usuario;
+import com.algaworks.algafood.domain.repository.UsuarioRepository;
+import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 
 @RestController
 @RequestMapping(value = "/usuarios")
@@ -41,8 +44,9 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	@Autowired
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 	
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UsuarioModel> listar() {
+	@Override
+	@GetMapping
+	public CollectionModel<UsuarioModel> listar() {
 		List<Usuario> todasUsuarios = usuarioRepository.findAll();
 		
 		return usuarioModelAssembler.toCollectionModel(todasUsuarios);

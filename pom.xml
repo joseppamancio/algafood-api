@@ -121,6 +121,11 @@
 			</exclusion>
 		</exclusions>
 	</dependency>
+	
+	<dependency>
+		<groupId>com.fasterxml.jackson.datatype</groupId>
+		<artifactId>jackson-datatype-jsr310</artifactId>
+	</dependency>
 
 	<dependency>
 	  <groupId>net.sf.jasperreports</groupId>
@@ -149,8 +154,15 @@
     	<groupId>org.springframework.boot</groupId>
     	<artifactId>spring-boot-starter-freemarker</artifactId>
 	</dependency>
+	
+	 <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-hateoas</artifactId>
+    </dependency>
+    
+    
   </dependencies>
-
+  
   <build>
     <plugins>
 	<plugin>
