@@ -24,6 +24,7 @@ import com.algaworks.algafood.api.v1.assembler.CidadeModelAssembler;
 import com.algaworks.algafood.api.v1.model.CidadeModel;
 import com.algaworks.algafood.api.v1.model.input.CidadeInput;
 import com.algaworks.algafood.api.v1.openapi.controller.CidadeControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Cidade;
@@ -48,6 +49,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 
 	@Deprecated
 	@Override
+	@CheckSecurity.Cidades.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public CollectionModel<CidadeModel> listar() {
 		List<Cidade> todasCidades = cidadeRepository.findAll();
@@ -56,6 +58,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 	}
 
 	@Override
+	@CheckSecurity.Cidades.PodeConsultar
 	@GetMapping(path = "/{cidadeId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CidadeModel buscar(@PathVariable Long cidadeId) {
 		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
@@ -64,6 +67,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 	}
 
 	@Override
+	@CheckSecurity.Cidades.PodeEditar
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
@@ -83,6 +87,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 	}
 
 	@Override
+	@CheckSecurity.Cidades.PodeEditar
 	@PutMapping(path = "/{cidadeId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CidadeModel atualizar(@PathVariable Long cidadeId,
 	                             @RequestBody @Valid CidadeInput cidadeInput) {
@@ -101,6 +106,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 
 	@Override
 	@DeleteMapping("/{cidadeId}")
+	@CheckSecurity.Cidades.PodeEditar
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long cidadeId) {
 		cadastroCidade.excluir(cidadeId);

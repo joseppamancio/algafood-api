@@ -24,6 +24,7 @@ import com.algaworks.algafood.api.v1.model.input.SenhaInput;
 import com.algaworks.algafood.api.v1.model.input.UsuarioComSenhaInput;
 import com.algaworks.algafood.api.v1.model.input.UsuarioInput;
 import com.algaworks.algafood.api.v1.openapi.controller.UsuarioControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.repository.UsuarioRepository;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
@@ -46,12 +47,14 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	
 	@Override
 	@GetMapping
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	public CollectionModel<UsuarioModel> listar() {
 		List<Usuario> todasUsuarios = usuarioRepository.findAll();
 		
 		return usuarioModelAssembler.toCollectionModel(todasUsuarios);
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@GetMapping(value = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UsuarioModel buscar(@PathVariable Long usuarioId) {
 		Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
@@ -59,8 +62,9 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		return usuarioModelAssembler.toModel(usuario);
 	}
 	
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public UsuarioModel adicionar(@RequestBody @Valid UsuarioComSenhaInput usuarioInput) {
 		Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioInput);
 		usuario = cadastroUsuario.salvar(usuario);
@@ -68,6 +72,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		return usuarioModelAssembler.toModel(usuario);
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarUsuario
 	@PutMapping(value = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UsuarioModel atualizar(@PathVariable Long usuarioId,
 			@RequestBody @Valid UsuarioInput usuarioInput) {

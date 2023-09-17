@@ -23,6 +23,7 @@ import com.algaworks.algafood.api.v1.assembler.EstadoModelAssembler;
 import com.algaworks.algafood.api.v1.model.EstadoModel;
 import com.algaworks.algafood.api.v1.model.input.EstadoInput;
 import com.algaworks.algafood.api.v1.openapi.controller.EstadoControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.repository.EstadoRepository;
 import com.algaworks.algafood.domain.service.CadastroEstadoService;
@@ -43,6 +44,7 @@ public class EstadoController implements EstadoControllerOpenApi {
 	@Autowired
 	private EstadoInputDisassembler estadoInputDisassembler;
 	
+	@CheckSecurity.Estados.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public CollectionModel<EstadoModel> listar() {
 		List<Estado> todosEstados = estadoRepository.findAll();
@@ -50,15 +52,17 @@ public class EstadoController implements EstadoControllerOpenApi {
 		return estadoModelAssembler.toCollectionModel(todosEstados);
 	}
 	
+	@CheckSecurity.Estados.PodeConsultar
 	@GetMapping(value = "/{estadoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public EstadoModel buscar(@PathVariable Long estadoId) {
 		Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
 		
 		return estadoModelAssembler.toModel(estado);
 	}
-	
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+
 	@ResponseStatus(HttpStatus.CREATED)
+	@CheckSecurity.Estados.PodeEditar
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
 		Estado estado = estadoInputDisassembler.toDomainObject(estadoInput);
 		
@@ -67,6 +71,7 @@ public class EstadoController implements EstadoControllerOpenApi {
 		return estadoModelAssembler.toModel(estado);
 	}
 	
+	@CheckSecurity.Estados.PodeEditar
 	@PutMapping(value = "/{estadoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public EstadoModel atualizar(@PathVariable Long estadoId,
 			@RequestBody @Valid EstadoInput estadoInput) {
@@ -80,6 +85,7 @@ public class EstadoController implements EstadoControllerOpenApi {
 	}
 	
 	@DeleteMapping("/{estadoId}")
+	@CheckSecurity.Estados.PodeEditar
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long estadoId) {
 		cadastroEstado.excluir(estadoId);	

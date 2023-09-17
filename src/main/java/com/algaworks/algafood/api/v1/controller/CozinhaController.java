@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.v1.controller;
 
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,7 @@ import com.algaworks.algafood.api.v1.assembler.CozinhaModelAssembler;
 import com.algaworks.algafood.api.v1.model.CozinhaModel;
 import com.algaworks.algafood.api.v1.model.input.CozinhaInput;
 import com.algaworks.algafood.api.v1.openapi.controller.CozinhaControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
@@ -51,6 +53,7 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 	private PagedResourcesAssembler<Cozinha> pagedResourcesAssembler;
 
 	@Override
+	@CheckSecurity.Cozinhas.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public PagedModel<CozinhaModel> listar(@PageableDefault(size = 10) Pageable pageable) {
 		
@@ -65,6 +68,7 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 	}
 
 	@Override
+	@CheckSecurity.Cozinhas.PodeConsultar
 	@GetMapping(value = "/{cozinhaId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CozinhaModel buscar(@PathVariable Long cozinhaId) {
 		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
@@ -73,16 +77,18 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 	}
 
 	@Override
+	@CheckSecurity.Cozinhas.PodeEditar
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
 		Cozinha cozinha = cozinhaInputDisassembler.toDomainObject(cozinhaInput);
 		cozinha = cadastroCozinha.salvar(cozinha);
-
+		
 		return cozinhaModelAssembler.toModel(cozinha);
 	}
 
 	@Override
+	@CheckSecurity.Cozinhas.PodeEditar
 	@PutMapping(value = "/{cozinhaId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CozinhaModel atualizar(@PathVariable Long cozinhaId,
 	                              @RequestBody @Valid CozinhaInput cozinhaInput) {
@@ -94,6 +100,7 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 	}
 
 	@Override
+	@CheckSecurity.Cozinhas.PodeEditar
 	@DeleteMapping(value = "/{cozinhaId}", produces = {})
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long cozinhaId) {

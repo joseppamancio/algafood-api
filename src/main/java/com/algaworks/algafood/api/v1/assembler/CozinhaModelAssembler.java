@@ -11,11 +11,8 @@ import com.algaworks.algafood.api.v1.model.CozinhaModel;
 import com.algaworks.algafood.domain.model.Cozinha;
 
 @Component
-public class CozinhaModelAssembler extends RepresentationModelAssemblerSupport<Cozinha, CozinhaModel>{
-
-	public CozinhaModelAssembler() {
-		super(CozinhaController.class, CozinhaModel.class);
-	}
+public class CozinhaModelAssembler 
+		extends RepresentationModelAssemblerSupport<Cozinha, CozinhaModel> {
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -23,14 +20,18 @@ public class CozinhaModelAssembler extends RepresentationModelAssemblerSupport<C
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	public CozinhaModelAssembler() {
+		super(CozinhaController.class, CozinhaModel.class);
+	}
+	
 	@Override
 	public CozinhaModel toModel(Cozinha cozinha) {
-	    CozinhaModel cozinhaModel = createModelWithId(cozinha.getId(), cozinha);
-	    modelMapper.map(cozinha, cozinhaModel);
-	    
-	    cozinhaModel.add(algaLinks.linkToCozinhas("cozinhas"));
-	    
-	    return cozinhaModel;
+		CozinhaModel cozinhaModel = createModelWithId(cozinha.getId(), cozinha);
+		modelMapper.map(cozinha, cozinhaModel);
+		
+		cozinhaModel.add(algaLinks.linkToCozinhas("cozinhas"));
+		
+		return cozinhaModel;
 	}
 	
 }
