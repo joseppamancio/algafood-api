@@ -212,11 +212,56 @@
 					"name": "Cozinhas - Atualizar",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
+							"type": "oauth2",
+							"oauth2": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX25hbWUiOiJqb2FvLmdlckBhbGdhZm9vZC5jb20uYnIiLCJzY29wZSI6WyJ3cml0ZSIsInJlYWQiXSwiZXhwIjoxNjk0NTg2OTY1LCJhdXRob3JpdGllcyI6WyJFRElUQVJfQ09aSU5IQVMiLCJDT05TVUxUQVJfUkVTVEFVUkFOVEVTIiwiRURJVEFSX0ZPUk1BU19QQUdBTUVOVE8iLCJFRElUQVJfUkVTVEFVUkFOVEVTIiwiQ09OU1VMVEFSX1VTVUFSSU9TIiwiRURJVEFSX1VTVUFSSU9TIiwiQ09OU1VMVEFSX1BST0RVVE9TIiwiQ09OU1VMVEFSX0NPWklOSEFTIiwiR0VSQVJfUkVMQVRPUklPUyIsIkVESVRBUl9DSURBREVTIiwiR0VSRU5DSUFSX1BFRElET1MiLCJDT05TVUxUQVJfQ0lEQURFUyIsIkNPTlNVTFRBUl9FU1RBRE9TIiwiQ09OU1VMVEFSX0ZPUk1BU19QQUdBTUVOVE8iLCJDT05TVUxUQVJfUEVESURPUyIsIkVESVRBUl9QUk9EVVRPUyIsIkVESVRBUl9FU1RBRE9TIl0sImp0aSI6IjQ2MTFkZTIxLTZjNzktNDI4NC04NmQzLTc2YmZjYzk0MGI3ZCIsIm5vbWVfY29tcGxldG8iOiJKb8OjbyBkYSBTaWx2YSIsImNsaWVudF9pZCI6ImFsZ2Fmb29kLXdlYiJ9.ngTjGLCcBDB5hW7ZL52M0lwsLKrwjS2GGPKn5bdGSr3ogO1x9bycJPss25BRQrKbIGzBiCbM37HZ8BFPcfoIz8SehowgPEByKLNad3WvDYIiSdXA8SAM_d9WfFv5PqVYdl4swjiDBbgSCGPT1UwDu1o95Kd_wJ80LpoE_HUCz7h_Vq8RExWlxA0MSOlVZUlJzQ54fYftbhiyYkfOGdcjFdgr16YH3Bpqe3sBXpQR_mHPEsBBLFa0X9H9y8zPFhh9WqPSpuczoQzqrcf8cWiaQUDrybJdZu-dKPAVHpOx6Ig4gOibWElg8cU4oCNtlV9GrpJg6fwvg7hAYeJ8noHatA",
+									"key": "username",
+									"value": "joao.ger@algafood.com.br",
+									"type": "string"
+								},
+								{
+									"key": "refreshTokenUrl",
+									"value": "auth.algafood.local:8081/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "web123",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "algafood-web",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "auth.algafood.local:8081/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Algafood Token",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
 									"type": "string"
 								}
 							]
@@ -260,6 +305,61 @@
 				{
 					"name": "Cozinhas - Remover",
 					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "username",
+									"value": "joao.ger@algafood.com.br",
+									"type": "string"
+								},
+								{
+									"key": "refreshTokenUrl",
+									"value": "auth.algafood.local:8081/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "web123",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "algafood-web",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "auth.algafood.local:8081/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Algafood Token",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -593,7 +693,7 @@
 			"name": "Produtos",
 			"item": [
 				{
-					"name": "Formas de Pagamento - Adicionar",
+					"name": "Produtos - Adicionar",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -632,7 +732,7 @@
 					"response": []
 				},
 				{
-					"name": "Formas de Pagamento -  Buscar",
+					"name": "Produtos -  Buscar",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -663,7 +763,7 @@
 					"response": []
 				},
 				{
-					"name": "Formas de Pagamento - Atualizar",
+					"name": "Produtos - Atualizar",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -703,7 +803,7 @@
 					"response": []
 				},
 				{
-					"name": "Formas de Pagamento - Remover",
+					"name": "Produtos - Remover",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -743,7 +843,7 @@
 					"response": []
 				},
 				{
-					"name": "Formas de Pagamento - Listar",
+					"name": "Produtos - Listar",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1485,11 +1585,56 @@
 					"name": "Restaurantes - Fechar",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
+							"type": "oauth2",
+							"oauth2": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX25hbWUiOiJqb2FvLmdlckBhbGdhZm9vZC5jb20uYnIiLCJzY29wZSI6WyJXUklURSIsIlJFQUQiXSwiZXhwIjoxNjk0NzQyNDA1LCJhdXRob3JpdGllcyI6WyJHRVJBUl9SRUxBVE9SSU9TIiwiRURJVEFSX0NPWklOSEFTIiwiRURJVEFSX0NJREFERVMiLCJFRElUQVJfRk9STUFTX1BBR0FNRU5UTyIsIkVESVRBUl9SRVNUQVVSQU5URVMiLCJHRVJFTkNJQVJfUEVESURPUyIsIkNPTlNVTFRBUl9VU1VBUklPUyIsIkVESVRBUl9VU1VBUklPUyIsIkNPTlNVTFRBUl9QRURJRE9TIiwiRURJVEFSX0VTVEFET1MiXSwianRpIjoiZjlmM2E3Y2QtN2QwYy00MjYxLTk0NGEtNjUyY2M5ZWUwNjllIiwibm9tZV9jb21wbGV0byI6Ikpvw6NvIGRhIFNpbHZhIiwiY2xpZW50X2lkIjoiYWxnYWZvb2Qtd2ViIn0.KxptTpmVM5-JZfuYfU2MSbWYlKGnjAsVtVkrj5d3DcVChg-asBiHf1hgWLag61Q1YF_yfu6B2emYq3cfB2ygMbIb3n0qZjLg5V6iXyhI579MrJnXDrkEFGHM97GYA8gS-0jFe8SH3OfP9dOCILKrhL7OhAvxCaczuTOubNmjnLpTmYQzfpxIBnVPPs373VOWDS-noJq3nFhwlDiAfsFO1ZApGmPjN3Zsn0V2B6uOiTeiqgpuGx78PaRCIQ0pSvr1SbzaRQDkCdxuBukY__i88tj5fpZ6WBdZS339FuB2ZgXRT1lAzeFgXpmj4jOvBwTivHsbjE3a9hvotJ7u1ZsUIA",
+									"key": "username",
+									"value": "joao.ger@algafood.com.br",
+									"type": "string"
+								},
+								{
+									"key": "refreshTokenUrl",
+									"value": "auth.algafood.local:8081/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "web123",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "algafood-web",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "auth.algafood.local:8081/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Algafood Token",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
 									"type": "string"
 								}
 							]
@@ -2836,11 +2981,56 @@
 					"name": "Pedidos - Buscar",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
+							"type": "oauth2",
+							"oauth2": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX25hbWUiOiJqb2FvLmdlckBhbGdhZm9vZC5jb20uYnIiLCJzY29wZSI6WyJXUklURSIsIlJFQUQiXSwiZXhwIjoxNjk0OTI5OTg2LCJhdXRob3JpdGllcyI6WyJHRVJBUl9SRUxBVE9SSU9TIiwiRURJVEFSX0NPWklOSEFTIiwiRURJVEFSX0NJREFERVMiLCJFRElUQVJfRk9STUFTX1BBR0FNRU5UTyIsIkVESVRBUl9SRVNUQVVSQU5URVMiLCJHRVJFTkNJQVJfUEVESURPUyIsIkNPTlNVTFRBUl9VU1VBUklPUyIsIkVESVRBUl9VU1VBUklPUyIsIkNPTlNVTFRBUl9QRURJRE9TIiwiRURJVEFSX0VTVEFET1MiXSwianRpIjoiNTdkMTIxZjAtNGIxYS00ZTc3LWJiNWItYWJhNjNiMDdjY2ZkIiwibm9tZV9jb21wbGV0byI6Ikpvw6NvIGRhIFNpbHZhIiwiY2xpZW50X2lkIjoiYWxnYWZvb2Qtd2ViIn0.nPXs4FHXdqG3Q_iVjxQ96Cg6J5nrqM3CyGi_MHyqMZ2-kFD85dWgZxuNj7SdsEu3M-E_RS-M_aoSp-6ZsNnhE-2RepUou5xn-OTPbJxLG6OlLkc2bkO76Bd8MAGp0biUqA_vzTlWjWH06tkTuvS3QdBfR3s7motovPmCAlaOl-na5xTIpZ40MLPlxWEJHo7Lm3F7SOV0s9prWonjQU-Z_oabck1qvKh2EiJ7JObCVl2lGUdOKn8VjAn6Cty_30itAnLGOl1axKCOWjPbM8WfOwqv_aF9LTplXEdlMHwB2Gh5jspt68tIulmqiIhNlORSs_o0lxoTKd8fXip-Us28zw",
+									"key": "username",
+									"value": "joao.ger@algafood.com.br",
+									"type": "string"
+								},
+								{
+									"key": "refreshTokenUrl",
+									"value": "auth.algafood.local:8081/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "web123",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "algafood-web",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "auth.algafood.local:8081/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Algafood Token",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
 									"type": "string"
 								}
 							]
@@ -2938,11 +3128,56 @@
 					"name": "Pedidos - Adicionar",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
+							"type": "oauth2",
+							"oauth2": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo0LCJ1c2VyX25hbWUiOiJzZWJhc3RpYW8uY2FkQGFsZ2Fmb29kLmNvbS5iciIsInNjb3BlIjpbIndyaXRlIiwicmVhZCJdLCJleHAiOjE2OTQ0MTc5NzQsImp0aSI6IjllYzM1ZWVhLTIyZDYtNGZiMS05MTZmLTAyMzg0YTgwMTAyMSIsIm5vbWVfY29tcGxldG8iOiJTZWJhc3Rpw6NvIE1hcnRpbnMiLCJjbGllbnRfaWQiOiJhbGdhZm9vZC13ZWIifQ.fjEf4L0yqlUmWfVciwjUyUpMqvfpgmadhtaAlXc1S8gizrRPmrN9F405cdU6N21fAFQMOxtk3tsXWyiICSTTveyshXxjFnFlCUquQfYZU3CCbbTEcUwiZpZygfB0bRpTATFQZrUV77MqcAcnSxY8mg9dI_w5REzblNpBsHlEnyHJNl9xJm5nht-XAwAfewgJ_ia5UEBuA7rzZD1zj_kvVP6S3SKGPT3gPs4vhCsscUlWnngMymMXbX2L6yPeRDvV36VfQ94NxX5ykmoDzLPnCrm6kliy4RGn0O6YNjJOiajMptF6dgBZYebFkCOM3c1ubS8-BviYAAEdHyVKw-RG2w",
+									"key": "username",
+									"value": "joao.ger@algafood.com.br",
+									"type": "string"
+								},
+								{
+									"key": "refreshTokenUrl",
+									"value": "auth.algafood.local:8081/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "web123",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "algafood-web",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "auth.algafood.local:8081/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Algafood Token",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
 									"type": "string"
 								}
 							]
@@ -3359,7 +3594,7 @@
 							"urlencoded": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTM5ODE0NDMsInVzZXJfbmFtZSI6Impvc2UiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sImp0aSI6ImRkYjI5ZTZlLTIzM2UtNGJkZi05YTFlLTZhNjZiM2U5ODVhMCIsImNsaWVudF9pZCI6ImFsZ2Fmb29kLXdlYiIsInNjb3BlIjpbIndyaXRlIiwicmVhZCJdfQ.4Aiv8OD6UuZLMBIbYrtsHpoCqGKKuYUjvWb-UoxjkiI",
+									"value": "",
 									"type": "text"
 								}
 							]
