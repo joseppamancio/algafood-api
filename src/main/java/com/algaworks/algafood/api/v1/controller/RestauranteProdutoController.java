@@ -24,6 +24,7 @@ import com.algaworks.algafood.api.v1.assembler.ProdutoModelAssembler;
 import com.algaworks.algafood.api.v1.model.ProdutoModel;
 import com.algaworks.algafood.api.v1.model.input.ProdutoInput;
 import com.algaworks.algafood.api.v1.openapi.controller.RestauranteProdutoControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.model.Produto;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.ProdutoRepository;
@@ -55,6 +56,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
 	
 	@Override
 	@GetMapping
+	@CheckSecurity.Restaurantes.PodeConsultar
 	public CollectionModel<ProdutoModel> listar(@PathVariable Long restauranteId,
 	        @RequestParam(required = false, defaultValue = "false") Boolean incluirInativos) {
 	    Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
@@ -73,6 +75,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
 	
 	@Override
 	@GetMapping("/{produtoId}")
+	@CheckSecurity.Restaurantes.PodeConsultar
 	public ProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
 		Produto produto = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);
 		
@@ -82,6 +85,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
 	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
 	public ProdutoModel adicionar(@PathVariable Long restauranteId,
 			@RequestBody @Valid ProdutoInput produtoInput) {
 		Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
@@ -96,6 +100,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
 	
 	@Override
 	@PutMapping("/{produtoId}")
+	@CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
 	public ProdutoModel atualizar(@PathVariable Long restauranteId, @PathVariable Long produtoId,
 			@RequestBody @Valid ProdutoInput produtoInput) {
 		Produto produtoAtual = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);

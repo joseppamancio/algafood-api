@@ -29,6 +29,8 @@ import com.algaworks.algafood.api.v1.model.input.PedidoInput;
 import com.algaworks.algafood.api.v1.openapi.controller.PedidoControllerOpenApi;
 import com.algaworks.algafood.core.data.PageWrapper;
 import com.algaworks.algafood.core.data.PageableTranslator;
+import com.algaworks.algafood.core.security.AlgaSecurity;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.filter.PedidoFilter;
@@ -60,7 +62,11 @@ public class PedidoController implements PedidoControllerOpenApi{
 	@Autowired
 	private PagedResourcesAssembler<Pedido> pagedResourcesAssembler;
 	
+	@Autowired
+	private AlgaSecurity algaSecurity;
+	
 	@Override
+	@CheckSecurity.Pedidos.PodePesquisar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro, 
 	        @PageableDefault(size = 10) Pageable pageable) {
@@ -74,15 +80,15 @@ public class PedidoController implements PedidoControllerOpenApi{
 	    return pagedResourcesAssembler.toModel(pedidosPage, pedidoResumoModelAssembler);
 	}
 	
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@CheckSecurity.Pedidos.PodeCriar
 	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public PedidoModel adicionar(@Valid @RequestBody PedidoInput pedidoInput) {
 		try {
 			Pedido novoPedido = pedidoInputDisassembler.toDomainObject(pedidoInput);
 
-			// TODO pegar usuário autenticado
 			novoPedido.setCliente(new Usuario());
-			novoPedido.getCliente().setId(1L);
+			novoPedido.getCliente().setId(algaSecurity.getUsuarioId());
 
 			novoPedido = emissaoPedido.emitir(novoPedido);
 
@@ -92,6 +98,7 @@ public class PedidoController implements PedidoControllerOpenApi{
 		}
 	}
 	
+	@CheckSecurity.Pedidos.PodeBuscar
 	@GetMapping(value = "/{codigoPedido}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public PedidoModel buscar(@PathVariable String codigoPedido) {
 		Pedido pedido = emissaoPedido.buscarOuFalhar(codigoPedido);

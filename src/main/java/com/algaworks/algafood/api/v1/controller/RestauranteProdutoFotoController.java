@@ -27,6 +27,7 @@ import com.algaworks.algafood.api.v1.assembler.FotoProdutoModelAssembler;
 import com.algaworks.algafood.api.v1.model.FotoProdutoModel;
 import com.algaworks.algafood.api.v1.model.input.FotoProdutoInput;
 import com.algaworks.algafood.api.v1.openapi.controller.RestauranteProdutoFotoControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.FotoProduto;
 import com.algaworks.algafood.domain.model.Produto;
@@ -52,6 +53,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 	private FotoProdutoModelAssembler fotoProdutoModelAssembler;
 	
 	@Override
+	@CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId,
 			@PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput, 
@@ -73,12 +75,14 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 	@Override
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
 	public void excluir(@PathVariable Long restauranteId, 
 			@PathVariable Long produtoId) {
 		catalogoFotoProduto.excluir(restauranteId, produtoId);
 	}
 	
 	@Override
+	@CheckSecurity.Restaurantes.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public FotoProdutoModel buscar(@PathVariable Long restauranteId, 
 			@PathVariable Long produtoId) {
