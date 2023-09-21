@@ -1,7 +1,5 @@
 package com.algaworks.algafood.core.security;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -25,25 +23,24 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-        http
-        	.formLogin()
-        	.and()
-        	.authorizeRequests()
-        		.antMatchers("/oauth/**").authenticated()
-        	.and()
-        	.csrf().disable()
-            .cors(withDefaults())
-            .oauth2ResourceServer(server -> server
-                    .jwt()
-                    .jwtAuthenticationConverter(jwtAuthenticationConverter()));
-           
+		http
+			.formLogin().loginPage("/login")
+			.and()
+			.authorizeRequests()
+				.antMatchers("/oauth/**").authenticated()
+			.and()
+			.csrf().disable()
+			.cors().and()
+			.oauth2ResourceServer().jwt()
+				.jwtAuthenticationConverter(jwtAuthenticationConverter());
 	}
 	
 	private JwtAuthenticationConverter jwtAuthenticationConverter() {
 		var jwtAuthenticationConverter = new JwtAuthenticationConverter();
 		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
 			var authorities = jwt.getClaimAsStringList("authorities");
-			if(authorities == null) {
+			
+			if (authorities == null) {
 				authorities = Collections.emptyList();
 			}
 			
@@ -56,6 +53,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 			
 			return grantedAuthorities;
 		});
+		
 		return jwtAuthenticationConverter;
 	}
 	
@@ -66,3 +64,4 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 }
+

@@ -1122,6 +1122,61 @@
 				{
 					"name": "Usuários -   Listar",
 					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "http://api.algafood.local:9000/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "refreshTokenUrl",
+									"value": "http://api.algafood.local:9000/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "joao.ger@algafood.com.br",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "web123",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "algafood-web",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Algafood Token",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -1132,7 +1187,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://api.algafood.local:9000/usuarios",
+							"raw": "http://api.algafood.local:9000/v1/usuarios",
 							"protocol": "http",
 							"host": [
 								"api",
@@ -1141,6 +1196,7 @@
 							],
 							"port": "9000",
 							"path": [
+								"v1",
 								"usuarios"
 							]
 						}
@@ -1787,6 +1843,61 @@
 				{
 					"name": "Restaurantes - Listar",
 					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "http://api.algafood.local:9000/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "refreshTokenUrl",
+									"value": "http://api.algafood.local:9000/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "joao.ger@algafood.com.br",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "web123",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "algafood-web",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Algafood Token",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -1797,7 +1908,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://api.algafood.local:9000/restaurantes?projecao=apenas-nome",
+							"raw": "http://api.algafood.local:9000/v1/restaurantes?projecao=apenas-nome",
 							"protocol": "http",
 							"host": [
 								"api",
@@ -1806,6 +1917,7 @@
 							],
 							"port": "9000",
 							"path": [
+								"v1",
 								"restaurantes"
 							],
 							"query": [
@@ -3383,13 +3495,14 @@
 							]
 						},
 						"url": {
-							"raw": "auth.algafood.local:8081/oauth/token",
+							"raw": "http://api.algafood.local:9000/oauth/token",
+							"protocol": "http",
 							"host": [
-								"auth",
+								"api",
 								"algafood",
 								"local"
 							],
-							"port": "8081",
+							"port": "9000",
 							"path": [
 								"oauth",
 								"token"
@@ -3423,7 +3536,7 @@
 							"urlencoded": [
 								{
 									"key": "code",
-									"value": "DrGD0w",
+									"value": "QjMOuo",
 									"type": "text"
 								},
 								{
@@ -3433,7 +3546,7 @@
 								},
 								{
 									"key": "redirect_uri",
-									"value": "http://aplicacao-cliente",
+									"value": "http://www.foodanalytics.local:8082",
 									"type": "text"
 								},
 								{
@@ -3457,13 +3570,13 @@
 							]
 						},
 						"url": {
-							"raw": "auth.algafood.local:8081/oauth/token",
+							"raw": "api.algafood.local:9000/oauth/token",
 							"host": [
-								"auth",
+								"api",
 								"algafood",
 								"local"
 							],
-							"port": "8081",
+							"port": "9000",
 							"path": [
 								"oauth",
 								"token"
@@ -3641,6 +3754,66 @@
 							"path": [
 								"oauth",
 								"token_key"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Public Key - Solicitar JWKSet",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "web123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "algafood-web",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "joao.ger@algafood.com.br",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.algafood.local:9000/.well-known/jwks.json",
+							"protocol": "http",
+							"host": [
+								"api",
+								"algafood",
+								"local"
+							],
+							"port": "9000",
+							"path": [
+								".well-known",
+								"jwks.json"
 							]
 						}
 					},
