@@ -403,13 +403,18 @@
 							"type": "oauth2",
 							"oauth2": [
 								{
-									"key": "username",
-									"value": "joao.ger@algafood.com.br",
+									"key": "accessTokenUrl",
+									"value": "http://api.algafood.local:9000/oauth/token",
 									"type": "string"
 								},
 								{
 									"key": "refreshTokenUrl",
-									"value": "auth.algafood.local:8081/oauth/token",
+									"value": "http://api.algafood.local:9000/oauth/token",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "joao.ger@algafood.com.br",
 									"type": "string"
 								},
 								{
@@ -430,11 +435,6 @@
 								{
 									"key": "clientId",
 									"value": "algafood-web",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "auth.algafood.local:8081/oauth/token",
 									"type": "string"
 								},
 								{
@@ -3454,6 +3454,35 @@
 		{
 			"name": "Segurança",
 			"item": [
+				{
+					"name": "Host Check",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "api.algafood.local/hostcheck",
+							"host": [
+								"api",
+								"algafood",
+								"local"
+							],
+							"path": [
+								"hostcheck"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Flow - Password - Solicitar Token",
 					"request": {

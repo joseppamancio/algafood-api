@@ -4,8 +4,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -14,11 +14,10 @@ import org.springframework.test.context.TestPropertySource;
 
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
-import com.algaworks.algafood.util.DatabaseCleaner;
-import com.algaworks.algafood.util.ResourceUtils;
-
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import com.algaworks.algafood.util.DatabaseCleaner;
+import com.algaworks.algafood.util.ResourceUtils;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
