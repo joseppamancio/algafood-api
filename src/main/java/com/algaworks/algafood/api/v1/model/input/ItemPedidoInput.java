@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.v1.model.input;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+import com.algaworks.algafood.core.validation.Multiplo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class ItemPedidoInput {
 	@ApiModelProperty(example = "2", required = true)
 	@NotNull
 	@PositiveOrZero
+	@Multiplo(numero = 1)
 	private Integer quantidade;
 
 	@ApiModelProperty(example = "Menos picante, por favor")
