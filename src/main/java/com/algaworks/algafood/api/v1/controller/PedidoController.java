@@ -116,7 +116,7 @@ public class PedidoController implements PedidoControllerOpenApi{
 				"restaurante.nome", "restaurante.nome",
 				"restaurante.id", "restaurante.id",
 				"cliente.id", "cliente.id",
-				"cliente.nome", "cliente.nome"
+				"nomeCliente", "cliente.nome"
 			);
 		
 		return PageableTranslator.translate(apiPageable, mapeamento);
