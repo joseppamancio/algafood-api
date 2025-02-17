@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,8 +88,9 @@ public class EstadoController implements EstadoControllerOpenApi {
 	@DeleteMapping("/{estadoId}")
 	@CheckSecurity.Estados.PodeEditar
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long estadoId) {
-		cadastroEstado.excluir(estadoId);	
+	public ResponseEntity<Void> remover(@PathVariable Long estadoId) {
+		cadastroEstado.excluir(estadoId);
+		return ResponseEntity.noContent().build();
 	}
 	
 }

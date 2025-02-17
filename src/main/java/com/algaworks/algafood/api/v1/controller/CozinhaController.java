@@ -10,6 +10,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -103,8 +104,9 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 	@CheckSecurity.Cozinhas.PodeEditar
 	@DeleteMapping(value = "/{cozinhaId}", produces = {})
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long cozinhaId) {
+	public ResponseEntity<Void> remover(@PathVariable Long cozinhaId) {
 		cadastroCozinha.excluir(cozinhaId);
+		return ResponseEntity.noContent().build();
 	}
 
 }
