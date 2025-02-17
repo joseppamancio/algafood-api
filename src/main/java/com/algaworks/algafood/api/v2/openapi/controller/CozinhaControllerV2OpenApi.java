@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.v2.openapi.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.PagedModel;
 
@@ -7,6 +8,7 @@ import com.algaworks.algafood.api.v2.model.CozinhaModelV2;
 import com.algaworks.algafood.api.v2.model.input.CozinhaInputV2;
 import org.springframework.http.ResponseEntity;
 
+@SecurityRequirement(name="security_auth")
 public interface CozinhaControllerV2OpenApi {
 
     PagedModel<CozinhaModelV2> listar(Pageable pageable);
