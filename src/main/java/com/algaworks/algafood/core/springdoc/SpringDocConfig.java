@@ -1,27 +1,31 @@
 package com.algaworks.algafood.core.springdoc;
 
+
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import io.swagger.v3.core.converter.ModelConverters;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.media.Content;
-import io.swagger.v3.oas.models.media.MediaType;
-import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.annotations.security.OAuthFlow;
 import io.swagger.v3.oas.annotations.security.OAuthFlows;
 import io.swagger.v3.oas.annotations.security.OAuthScope;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.media.Content;
+import io.swagger.v3.oas.models.media.MediaType;
+import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.tags.Tag;
 import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.SpringDocUtils;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.hateoas.CollectionModel;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,13 +63,26 @@ public class SpringDocConfig {
                                     .license(new License()
                                             .name("Apache 2.0")
                                             .url("http://springdoc.com"))
-                            )
-                            .externalDocs(new ExternalDocumentation()
-                                    .description("AlgaWorks")
-                                    .url("https://algaworks.com")
-                            ).components(new Components().schemas(
-                                    gerarSchemas()
-                            ));
+                    ).externalDocs(new ExternalDocumentation()
+                            .description("AlgaWorks")
+                            .url("https://algaworks.com")
+                    ).tags(Arrays.asList(
+                            new Tag().name("Cidades").description("Gerencia as cidades"),
+                            new Tag().name("Grupos").description("Gerencia os grupos"),
+                            new Tag().name("Cozinhas").description("Gerencia as cozinhas"),
+                            new Tag().name("Formas de pagamento").description("Gerencia as formas de pagamento"),
+                            new Tag().name("Pedidos").description("Gerencia os pedidos"),
+                            new Tag().name("Restaurantes").description("Gerencia os restaurantes"),
+                            new Tag().name("Estados").description("Gerencia os estados"),
+                            new Tag().name("Produtos").description("Gerencia os produtos"),
+                            new Tag().name("Usuários").description("Gerencia os usuários"),
+                            new Tag().name("Permissões").description("Gerencia as permissões"),
+                            new Tag().name("Estatísticas").description("Estatísticas da AlgaFood")
+                    ))
+                    .components(new Components()
+                            .schemas(gerarSchemas(openApi.getComponents().getSchemas()))
+                            .responses(gerarResponses())
+                    );
                 })
                 .build();
     }
@@ -89,9 +106,11 @@ public class SpringDocConfig {
                                     .url("https://algaworks.com")
                             )
                             .tags(Arrays.asList(
-                                    new Tag().name("Cidades").description("Gerencia as cidades")
-                            )).components(new Components()
-                                    .schemas(gerarSchemas())
+                                    new Tag().name("Cidades").description("Gerencia as cidades"),
+                                    new Tag().name("Cozinhas").description("Gerencia as cozinhas")
+                            ))
+                            .components(new Components()
+                                    .schemas(gerarSchemas(openApi.getComponents().getSchemas()))
                                     .responses(gerarResponses())
                             );
                 })
@@ -131,17 +150,16 @@ public class SpringDocConfig {
         };
     }
 
-    private Map<String, Schema> gerarSchemas() {
-        final Map<String, Schema> schemaMap = new HashMap<>();
-
+    private  Map<String, Schema> gerarSchemas(Map<String, Schema> schemasMap) {
         Map<String, Schema> problemSchema = ModelConverters.getInstance().read(Problem.class);
         Map<String, Schema> problemObjectSchema = ModelConverters.getInstance().read(Problem.Object.class);
 
-        schemaMap.putAll(problemSchema);
-        schemaMap.putAll(problemObjectSchema);
-
-        return schemaMap;
+        schemasMap.putAll(problemSchema);
+        schemasMap.putAll(problemObjectSchema);
+        return schemasMap;
     }
+
+
 
     private Map<String, ApiResponse> gerarResponses() {
         final Map<String, ApiResponse> apiResponseMap = new HashMap<>();
@@ -168,5 +186,4 @@ public class SpringDocConfig {
 
         return apiResponseMap;
     }
-
 }

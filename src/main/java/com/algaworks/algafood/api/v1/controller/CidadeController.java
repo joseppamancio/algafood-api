@@ -33,7 +33,7 @@ import com.algaworks.algafood.domain.repository.CidadeRepository;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 
 @RestController
-@RequestMapping(path = "/v1/cidades")
+@RequestMapping(path = "/v1/cidades", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CidadeController implements CidadeControllerOpenApi {
 
 	@Autowired
@@ -48,10 +48,10 @@ public class CidadeController implements CidadeControllerOpenApi {
 	@Autowired
 	private CidadeInputDisassembler cidadeInputDisassembler;
 
-	@Deprecated
+//	@Deprecated
 	@Override
 	@CheckSecurity.Cidades.PodeConsultar
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping
 	public CollectionModel<CidadeModel> listar() {
 		List<Cidade> todasCidades = cidadeRepository.findAll();
 
@@ -60,7 +60,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Cidades.PodeConsultar
-	@GetMapping(path = "/{cidadeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/{cidadeId}")
 	public CidadeModel buscar(@PathVariable Long cidadeId) {
 		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
 
@@ -69,7 +69,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Cidades.PodeEditar
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
 		try {
@@ -89,7 +89,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Cidades.PodeEditar
-	@PutMapping(path = "/{cidadeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/{cidadeId}")
 	public CidadeModel atualizar(@PathVariable Long cidadeId,
 	                             @RequestBody @Valid CidadeInput cidadeInput) {
 		try {
