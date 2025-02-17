@@ -4,19 +4,19 @@
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
 
 	<springProfile name="production">
-		<springProperty name="logglyToken" source="logging.loggly.token" />
+		<springProperty name="logglyToken" source="logging.loggly.token" /> <!-- Referencia em properties -->
 	
 		<appender name="loggly" class="ch.qos.logback.ext.loggly.LogglyAppender">
-			<endpointUrl>https://logs-01.loggly.com/inputs/${logglyToken}/tag/logback</endpointUrl>
+			<endpointUrl>https://logs-01.loggly.com/inputs/${logglyToken}/tag/logback</endpointUrl> <!-- Usando referência -->
 			<pattern>%d{"ISO8601", UTC} %p %t %c %M - %m%n</pattern>
 		</appender>
 		
 		<appender name="logglyAsync" class="ch.qos.logback.classic.AsyncAppender">
-			<appender-ref ref="loggly" />
+			<appender-ref ref="loggly" /> <!-- logglyAsync referencia loggly -->
 		</appender>
 		
 		<root level="info">
-			<appender-ref ref="logglyAsync" />
+			<appender-ref ref="logglyAsync" /> <!-- Nível info referencia logglyAsync -->
 		</root>
 	</springProfile>
 	
