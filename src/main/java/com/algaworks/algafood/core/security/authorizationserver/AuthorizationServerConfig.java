@@ -30,6 +30,7 @@ public class AuthorizationServerConfig {
         return http.build();
     }
 
+    @Bean
     public ProviderSettings providerSettings(AlgaFoodSecurityProperties algaFoodSecurityProperties) {
         return ProviderSettings.builder()
                 .issuer(algaFoodSecurityProperties.getProviderUrl())
