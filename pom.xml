@@ -28,6 +28,7 @@
     	<springfox.version>3.0.0</springfox.version>
     	<loggly.version>0.1.5</loggly.version>
 		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
+		<spring-authserver.version>0.3.1</spring-authserver.version>
   	</properties>
 
   	<dependencies>
@@ -182,6 +183,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-authorization-server</artifactId>
+			<version>${spring-authserver.version}</version>
 		</dependency>
 
 
