@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,7 @@ import com.algaworks.algafood.domain.repository.GrupoRepository;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;
 
 @RestController
-@RequestMapping(path = "/v1/grupos")
+@RequestMapping(path = "/v1/grupos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class GrupoController implements GrupoControllerOpenApi {
 
 	@Autowired
@@ -45,7 +46,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 	private GrupoInputDisassembler grupoInputDisassembler;
 
 	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping
 	public CollectionModel<GrupoModel> listar() {
 	    List<Grupo> todosGrupos = grupoRepository.findAll();
 	    
@@ -53,7 +54,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 	}
 
 	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@GetMapping(path = "/{grupoId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/{grupoId}")
 	public GrupoModel buscar(@PathVariable Long grupoId) {
 		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
 
@@ -61,7 +62,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 	}
 
 	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public GrupoModel adicionar(@RequestBody @Valid GrupoInput grupoInput) {
 		Grupo grupo = grupoInputDisassembler.toDomainObject(grupoInput);
@@ -72,7 +73,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 	}
 
 	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
-	@PutMapping(path = "/{grupoId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/{grupoId}")
 	public GrupoModel atualizar(@PathVariable Long grupoId,
 	                            @RequestBody @Valid GrupoInput grupoInput) {
 		Grupo grupoAtual = cadastroGrupo.buscarOuFalhar(grupoId);
@@ -84,11 +85,13 @@ public class GrupoController implements GrupoControllerOpenApi {
 		return grupoModelAssembler.toModel(grupoAtual);
 	}
 
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
+	@Override
 	@DeleteMapping("/{grupoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
-	public void remover(@PathVariable Long grupoId) {
+	public ResponseEntity<Void> remover(@PathVariable Long grupoId) {
 		cadastroGrupo.excluir(grupoId);
+		return ResponseEntity.noContent().build();
 	}
 
 }

@@ -25,15 +25,15 @@ public class AuthorizationServerConfig {
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain authFilterChain(HttpSecurity http) throws Exception {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
         return http.build();
     }
 
     @Bean
-    public ProviderSettings providerSettings(AlgaFoodSecurityProperties algaFoodSecurityProperties) {
+    public ProviderSettings providerSettings(AlgaFoodSecurityProperties properties) {
         return ProviderSettings.builder()
-                .issuer(algaFoodSecurityProperties.getProviderUrl())
+                .issuer(properties.getProviderUrl())
                 .build();
     }
 
@@ -55,4 +55,5 @@ public class AuthorizationServerConfig {
 
         return new InMemoryRegisteredClientRepository(Arrays.asList(algafoodbackend));
     }
+
 }

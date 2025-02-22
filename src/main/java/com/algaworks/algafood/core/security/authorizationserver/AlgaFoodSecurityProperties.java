@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Validated
-@ConfigurationProperties("algafood.security")
+@ConfigurationProperties("algafood.auth")
 public class AlgaFoodSecurityProperties {
 
     @NotBlank

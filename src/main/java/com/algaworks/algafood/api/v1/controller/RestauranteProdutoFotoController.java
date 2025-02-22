@@ -37,7 +37,8 @@ import com.algaworks.algafood.domain.service.FotoStorageService;
 import com.algaworks.algafood.domain.service.FotoStorageService.FotoRecuperada;
 
 @RestController
-@RequestMapping(path = "/v1/restaurantes/{restauranteId}/produtos/{produtoId}/foto")
+@RequestMapping(path = "/v1/restaurantes/{restauranteId}/produtos/{produtoId}/foto",
+		produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestauranteProdutoFotoController implements RestauranteProdutoFotoControllerOpenApi {
 
 	@Autowired
@@ -54,7 +55,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 	
 	@Override
 	@CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
-	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId,
 			@PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput, 
 			@RequestPart(required = true) MultipartFile arquivo) throws IOException {
@@ -71,14 +72,15 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 		
 		return fotoProdutoModelAssembler.toModel(fotoSalva);
 	}
-	
+
+	@CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
 	@Override
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
-	public void excluir(@PathVariable Long restauranteId, 
-			@PathVariable Long produtoId) {
+	public ResponseEntity<Void> excluir(@PathVariable Long restauranteId,
+										@PathVariable Long produtoId) {
 		catalogoFotoProduto.excluir(restauranteId, produtoId);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@Override
@@ -90,7 +92,8 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 		
 		return fotoProdutoModelAssembler.toModel(fotoProduto);
 	}
-	
+
+	// As fotos dos produtos ficarão públicas (não precisa de autorização para acessá-las)
 	@Override
 	@GetMapping(produces = MediaType.ALL_VALUE)
 	public ResponseEntity<?> servir(@PathVariable Long restauranteId, 

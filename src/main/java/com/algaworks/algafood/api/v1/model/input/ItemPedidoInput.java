@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 import com.algaworks.algafood.core.validation.Multiplo;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,17 +12,17 @@ import lombok.Setter;
 @Getter
 public class ItemPedidoInput {
 
-	@ApiModelProperty(example = "1", required = true)
+	@Schema(example = "1")
 	@NotNull
 	private Long produtoId;
 
-	@ApiModelProperty(example = "2", required = true)
+	@Schema(example = "2")
 	@NotNull
 	@PositiveOrZero
 	@Multiplo(numero = 1)
 	private Integer quantidade;
 
-	@ApiModelProperty(example = "Menos picante, por favor")
+	@Schema(example = "Menos picante, por favor")
 	private String observacao;
 
 }
