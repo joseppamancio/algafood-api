@@ -125,6 +125,61 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get OAuth2 Revoke",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "algafood-backend",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "backend123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/oauth2/revoke",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"oauth2",
+								"revoke"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
