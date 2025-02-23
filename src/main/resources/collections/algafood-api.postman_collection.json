@@ -153,7 +153,8 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);"
+											"pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+											"pm.environment.set(\"REFRESH_TOKEN\", jsonData.refresh_token);"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -188,7 +189,7 @@
 										},
 										{
 											"key": "code",
-											"value": "w1vZQrhOsy6YXzIR8187d-8YUxj6ystcEnuaF8lwaaqOoYzKF1dvawDfrby7k7WFdLtKvV1XpvWuO2bjG0MXmzMNEB-0g6nVAsVCtNUkK2Dh8Ex2VSq0nJUl723mQ7hi",
+											"value": "z6xufmoDhe9rdcgAuv6VsAwbDbgib9pJ89xfehOFEjmEYJIVBTgv1WxdKfBWITNzsC4liDEm9ZMROIbu7JJ6qkfGigNjt59pMRFMozm-jkgvWLD2zJP2FSYHAteSfSY4",
 											"type": "text"
 										},
 										{
@@ -281,6 +282,129 @@
 											"key": "code_challenge_method",
 											"value": "S256"
 										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Refresh Token",
+					"item": [
+						{
+							"name": "OAuth2 Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+											"pm.environment.set(\"REFRESH_TOKEN\", jsonData.refresh_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "web123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "algafood-web",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "grant_type",
+											"value": "refresh_token",
+											"type": "text"
+										},
+										{
+											"key": "refresh_token",
+											"value": "{{REFRESH_TOKEN}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/oauth2/token",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"oauth2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "OAuth2 Refresh Token Revoke",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "web123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "algafood-web",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "token",
+											"value": "{{REFRESH_TOKEN}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/oauth2/revoke",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"oauth2",
+										"revoke"
 									]
 								}
 							},
