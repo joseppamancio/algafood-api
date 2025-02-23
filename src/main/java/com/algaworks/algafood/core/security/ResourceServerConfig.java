@@ -16,7 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -33,7 +32,7 @@ public class ResourceServerConfig {
 //                .oauth2ResourceServer().opaqueToken();
                 .oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
 
-        return http.formLogin(Customizer.withDefaults()).build();
+        return http.formLogin(customizer -> customizer.loginPage("/oauth/login")).build();
     }
 
     private JwtAuthenticationConverter jwtAuthenticationConverter() {
