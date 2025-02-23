@@ -10,66 +10,283 @@
 			"name": "Auth",
 			"item": [
 				{
-					"name": "OAuth2 Token - Client Credentials",
-					"event": [
+					"name": "Client Credentials",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = pm.response.json();\r",
-									"\r",
-									"pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
+							"name": "OAuth2 Token - Client Credentials",
+							"event": [
 								{
-									"key": "username",
-									"value": "algafood-backend",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "backend123",
-									"type": "string"
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
 								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "text"
-								},
-								{
-									"key": "scope",
-									"value": "READ",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{BASE_URL}}/oauth2/token",
-							"host": [
-								"{{BASE_URL}}"
 							],
-							"path": [
-								"oauth2",
-								"token"
-							]
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "algafood-backend",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "backend123",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "READ",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/oauth2/token",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"oauth2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "OAuth JWKS",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "algafood-backend",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "backend123",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "READ",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/oauth2/jwks",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"oauth2",
+										"jwks"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Authorization Code",
+					"item": [
+						{
+							"name": "OAuth2 Token - Authorization Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "web123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "algafood-web",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "grant_type",
+											"value": "authorization_code",
+											"type": "text"
+										},
+										{
+											"key": "code",
+											"value": "w1vZQrhOsy6YXzIR8187d-8YUxj6ystcEnuaF8lwaaqOoYzKF1dvawDfrby7k7WFdLtKvV1XpvWuO2bjG0MXmzMNEB-0g6nVAsVCtNUkK2Dh8Ex2VSq0nJUl723mQ7hi",
+											"type": "text"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "http://127.0.0.1:9000/authorized",
+											"type": "text"
+										},
+										{
+											"key": "code_verifier",
+											"value": "abc123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/oauth2/token",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"oauth2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "OAuth2 Token - Solicitar Authorization Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/oauth2/authorize?response_type=code&client_id=algafood-web&state=abc&redirect_uri=http://127.0.0.1:9000/authorized&scope=READ WRITE&code_challenge=bKE9UspwyIPg8LsQHkJaiehiTeUdstI5JZOvaoQRgJA&code_challenge_method=S256",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"oauth2",
+										"authorize"
+									],
+									"query": [
+										{
+											"key": "response_type",
+											"value": "code"
+										},
+										{
+											"key": "client_id",
+											"value": "algafood-web"
+										},
+										{
+											"key": "state",
+											"value": "abc"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "http://127.0.0.1:9000/authorized"
+										},
+										{
+											"key": "scope",
+											"value": "READ WRITE"
+										},
+										{
+											"key": "code_challenge",
+											"value": "bKE9UspwyIPg8LsQHkJaiehiTeUdstI5JZOvaoQRgJA"
+										},
+										{
+											"key": "code_challenge_method",
+											"value": "S256"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "OAuth2 Introspect",
@@ -176,71 +393,6 @@
 							"path": [
 								"oauth2",
 								"revoke"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "OAuth JWKS",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = pm.response.json();\r",
-									"\r",
-									"pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "algafood-backend",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "backend123",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "text"
-								},
-								{
-									"key": "scope",
-									"value": "READ",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{BASE_URL}}/oauth2/jwks",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"oauth2",
-								"jwks"
 							]
 						}
 					},
