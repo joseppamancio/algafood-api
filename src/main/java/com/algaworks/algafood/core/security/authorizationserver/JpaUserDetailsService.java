@@ -21,17 +21,17 @@ public class JpaUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
-	@Override
+
 	@Transactional(readOnly = true)
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepository.findByEmail(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com e-mail informado"));
-		
+
 		return new User(usuario.getEmail(), usuario.getSenha(), getAuthorities(usuario));
 	}
-	
-	private Collection<GrantedAuthority> getAuthorities(Usuario usuario){
+
+	private Collection<GrantedAuthority> getAuthorities(Usuario usuario) {
 		return usuario.getGrupos().stream()
 				.flatMap(grupo -> grupo.getPermissoes().stream())
 				.map(permissao -> new SimpleGrantedAuthority(permissao.getNome().toUpperCase()))

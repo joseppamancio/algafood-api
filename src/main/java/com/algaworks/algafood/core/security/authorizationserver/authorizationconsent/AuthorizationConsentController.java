@@ -59,6 +59,7 @@ public class AuthorizationConsentController {
 
         return "pages/approval";
     }
+
 }
 
 
