@@ -1,4 +1,4 @@
-package com.algaworks.algafood.core.security.authorizationserver;
+package com.algaworks.algafood.core.security.authorizationserver.authorizationconsent;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
