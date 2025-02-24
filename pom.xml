@@ -7,7 +7,7 @@
   	<parent>
     	<groupId>org.springframework.boot</groupId>
     	<artifactId>spring-boot-starter-parent</artifactId>
-    	<version>2.7.2</version>
+    	<version>3.0.0</version>
     	<relativePath/>
   	</parent>
   
@@ -18,16 +18,14 @@
 	<description>API de delivery de comida</description>
 
 	<properties>
-		<spring-boot.version>2.7.2</spring-boot.version>
     	<java.version>17</java.version>
     	<modelmapper.version>3.0.0</modelmapper.version>
-    	<squiggly.version>1.3.18</squiggly.version>
     	<jasperreports.version>6.20.5</jasperreports.version>
     	<aws-java-sdk-s3.version>[1.12.261,)</aws-java-sdk-s3.version>
     	<loggly.version>0.1.5</loggly.version>
 		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
-		<springdoc.version>1.6.9</springdoc.version>
-		<spring-authserver.version>0.3.1</spring-authserver.version>
+		<springdoc.version>2.0.0</springdoc.version>
+		<spring-authserver.version>1.0.0</spring-authserver.version>
   	</properties>
 
   	<dependencies>
@@ -101,14 +99,6 @@
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper.version}</version>
-		</dependency>
-
-
-		<!-- Squiggly Dependency -->
-		<dependency>
-			<groupId>com.github.bohnman</groupId>
-			<artifactId>squiggly-filter-jackson</artifactId>
-			<version>${squiggly.version}</version>
 		</dependency>
 
 
@@ -196,17 +186,12 @@
 		<!-- Springdoc Dependencies -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
+			<artifactId>springdoc-openapi-starter-common</artifactId>
 			<version>${springdoc.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-hateoas</artifactId>
-			<version>${springdoc.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-security</artifactId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>${springdoc.version}</version>
 		</dependency>
 	

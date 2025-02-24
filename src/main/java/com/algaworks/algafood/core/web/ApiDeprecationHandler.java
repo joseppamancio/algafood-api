@@ -1,12 +1,12 @@
 package com.algaworks.algafood.core.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-@Component
+//@Component
 public class ApiDeprecationHandler implements HandlerInterceptor {
 
 	@Override

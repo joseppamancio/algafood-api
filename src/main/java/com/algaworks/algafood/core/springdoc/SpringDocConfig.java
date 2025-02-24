@@ -18,8 +18,8 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.tags.Tag;
-import org.springdoc.core.GroupedOpenApi;
-import org.springdoc.core.customizers.OpenApiCustomiser;
+import org.springdoc.core.customizers.OpenApiCustomizer;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -53,7 +53,7 @@ public class SpringDocConfig {
         return GroupedOpenApi.builder()
                 .group("Version 1.0")
                 .pathsToMatch("/v1/**")
-                .addOpenApiCustomiser(openApi -> {
+                .addOpenApiCustomizer(openApi -> {
                     openApi.info(new Info().title("Algafood API")
                                     .version("v1")
                                     .description("Rest API do Algafood")
@@ -90,7 +90,7 @@ public class SpringDocConfig {
         return GroupedOpenApi.builder()
                 .group("Version 2.0")
                 .pathsToMatch("/v2/**")
-                .addOpenApiCustomiser(openApi -> {
+                .addOpenApiCustomizer(openApi -> {
                     openApi.info(new Info().title("Algafood API")
                                     .version("v2")
                                     .description("Rest API do Algafood")
@@ -115,7 +115,7 @@ public class SpringDocConfig {
     }
 
     @Bean
-    public OpenApiCustomiser openApiCustomiser() {
+    public OpenApiCustomizer openApiCustomiser() {
         return openApi -> {
             openApi.getPaths()
                     .values()
