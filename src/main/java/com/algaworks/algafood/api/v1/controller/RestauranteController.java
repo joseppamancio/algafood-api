@@ -2,7 +2,7 @@ package com.algaworks.algafood.api.v1.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -38,7 +38,7 @@ import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
 @RestController
-@RequestMapping(path = "/v1/restaurantes")
+@RequestMapping(path = "/v1/restaurantes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestauranteController implements RestauranteControllerOpenApi {
 
 	@Autowired
@@ -61,7 +61,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Restaurantes.PodeConsultar
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping
 	public CollectionModel<RestauranteBasicoModel> listar() {
 		return restauranteBasicoModelAssembler
 				.toCollectionModel(restauranteRepository.findAll());
@@ -69,7 +69,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Restaurantes.PodeConsultar
-	@GetMapping(params = "projecao=apenas-nome", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(params = "projecao=apenas-nome")
 	public CollectionModel<RestauranteApenasNomeModel> listarApenasNomes() {
 		return restauranteApenasNomeModelAssembler
 				.toCollectionModel(restauranteRepository.findAll());
@@ -77,7 +77,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Restaurantes.PodeConsultar
-	@GetMapping(value = "/{restauranteId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{restauranteId}")
 	public RestauranteModel buscar(@PathVariable Long restauranteId) {
 		Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
 
@@ -87,7 +87,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 	@Override
 	@ResponseStatus(HttpStatus.CREATED)
 	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping
 	public RestauranteModel adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
 		try {
 			Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
@@ -100,7 +100,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
-	@PutMapping(value = "/{restauranteId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/{restauranteId}")
 	public RestauranteModel atualizar(@PathVariable Long restauranteId,
 	                                  @RequestBody @Valid RestauranteInput restauranteInput) {
 		try {
@@ -134,25 +134,27 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 		return ResponseEntity.noContent().build();
 	}
 
+	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
 	@Override
 	@PutMapping("/ativacoes")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
-	public void ativarMultiplos(@RequestBody List<Long> restauranteIds) {
+	public ResponseEntity<Void> ativarMultiplos(@RequestBody List<Long> restauranteIds) {
 		try {
 			cadastroRestaurante.ativar(restauranteIds);
+			return ResponseEntity.noContent().build();
 		} catch (RestauranteNaoEncontradoException e) {
 			throw new NegocioException(e.getMessage(), e);
 		}
 	}
 
+	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
 	@Override
 	@DeleteMapping("/ativacoes")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
-	public void inativarMultiplos(@RequestBody List<Long> restauranteIds) {
+	public ResponseEntity<Void> inativarMultiplos(@RequestBody List<Long> restauranteIds) {
 		try {
 			cadastroRestaurante.inativar(restauranteIds);
+			return ResponseEntity.noContent().build();
 		} catch (RestauranteNaoEncontradoException e) {
 			throw new NegocioException(e.getMessage(), e);
 		}

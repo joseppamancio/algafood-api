@@ -23,7 +23,7 @@ import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 
 @RestController
-@RequestMapping(path = "/v1/usuarios/{usuarioId}/grupos")
+@RequestMapping(path = "/v1/usuarios/{usuarioId}/grupos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
 
 	@Autowired
@@ -40,7 +40,7 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
 
 	@Override
 	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping
 	public CollectionModel<GrupoModel> listar(@PathVariable Long usuarioId) {
 	    Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
 	    

@@ -2,7 +2,7 @@ package com.algaworks.algafood.api.v1.controller;
 
 import java.util.Map;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,7 +41,7 @@ import com.algaworks.algafood.domain.service.EmissaoPedidoService;
 import com.algaworks.algafood.infrastructure.repository.spec.PedidoSpecs;
 
 @RestController
-@RequestMapping(value = "/v1/pedidos")
+@RequestMapping(path = "/v1/pedidos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PedidoController implements PedidoControllerOpenApi{
 
 	@Autowired
@@ -67,7 +67,7 @@ public class PedidoController implements PedidoControllerOpenApi{
 	
 	@Override
 	@CheckSecurity.Pedidos.PodePesquisar
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping
 	public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro, 
 	        @PageableDefault(size = 10) Pageable pageable) {
 	    Pageable pageableTraduzido = traduzirPageable(pageable);
@@ -82,7 +82,7 @@ public class PedidoController implements PedidoControllerOpenApi{
 	
 	@CheckSecurity.Pedidos.PodeCriar
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping
 	public PedidoModel adicionar(@Valid @RequestBody PedidoInput pedidoInput) {
 		try {
 			Pedido novoPedido = pedidoInputDisassembler.toDomainObject(pedidoInput);
@@ -99,7 +99,7 @@ public class PedidoController implements PedidoControllerOpenApi{
 	}
 	
 	@CheckSecurity.Pedidos.PodeBuscar
-	@GetMapping(value = "/{codigoPedido}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{codigoPedido}")
 	public PedidoModel buscar(@PathVariable String codigoPedido) {
 		Pedido pedido = emissaoPedido.buscarOuFalhar(codigoPedido);
 		

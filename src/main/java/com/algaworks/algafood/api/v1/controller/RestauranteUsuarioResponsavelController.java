@@ -23,7 +23,8 @@ import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
 @RestController
-@RequestMapping(path = "/v1/restaurantes/{restauranteId}/responsaveis")
+@RequestMapping(path = "/v1/restaurantes/{restauranteId}/responsaveis",
+		produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestauranteUsuarioResponsavelController implements RestauranteUsuarioResponsavelControllerOpenApi {
 
 	@Autowired
@@ -40,7 +41,7 @@ public class RestauranteUsuarioResponsavelController implements RestauranteUsuar
 
 	@Override
 	@CheckSecurity.Restaurantes.PodeConsultar
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping
 	public CollectionModel<UsuarioModel> listar(@PathVariable Long restauranteId) {
 	    Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
 	    

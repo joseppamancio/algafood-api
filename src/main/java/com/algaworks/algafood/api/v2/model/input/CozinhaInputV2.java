@@ -1,17 +1,15 @@
 package com.algaworks.algafood.api.v2.model.input;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-@ApiModel("CozinhaInput")
 public class CozinhaInputV2 {
 
-    @ApiModelProperty(example = "Brasileira", required = true)
+    @Schema(example = "Brasileira")
     @NotBlank
     private String nomeCozinha;   
 }        

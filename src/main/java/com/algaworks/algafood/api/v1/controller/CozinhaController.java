@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.v1.controller;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +10,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/v1/cozinhas")
+@RequestMapping(value = "/v1/cozinhas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CozinhaController implements CozinhaControllerOpenApi {
 	
 	@Autowired
@@ -54,7 +55,7 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Cozinhas.PodeConsultar
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping
 	public PagedModel<CozinhaModel> listar(@PageableDefault(size = 10) Pageable pageable) {
 		
 		log.debug("Consultando cozinhas com páginas de {} registros...", pageable.getPageSize());
@@ -69,7 +70,7 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Cozinhas.PodeConsultar
-	@GetMapping(value = "/{cozinhaId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{cozinhaId}")
 	public CozinhaModel buscar(@PathVariable Long cozinhaId) {
 		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
 
@@ -78,7 +79,7 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Cozinhas.PodeEditar
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
 		Cozinha cozinha = cozinhaInputDisassembler.toDomainObject(cozinhaInput);
@@ -89,7 +90,7 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 
 	@Override
 	@CheckSecurity.Cozinhas.PodeEditar
-	@PutMapping(value = "/{cozinhaId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/{cozinhaId}")
 	public CozinhaModel atualizar(@PathVariable Long cozinhaId,
 	                              @RequestBody @Valid CozinhaInput cozinhaInput) {
 		Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
@@ -99,12 +100,13 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 		return cozinhaModelAssembler.toModel(cozinhaAtual);
 	}
 
-	@Override
 	@CheckSecurity.Cozinhas.PodeEditar
-	@DeleteMapping(value = "/{cozinhaId}", produces = {})
+	@Override
+	@DeleteMapping("/{cozinhaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long cozinhaId) {
+	public ResponseEntity<Void> remover(@PathVariable Long cozinhaId) {
 		cadastroCozinha.excluir(cozinhaId);
+		return ResponseEntity.noContent().build();
 	}
 
 }
